@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class SpringbootJpaApplication implements CommandLineRunner {
@@ -22,6 +23,33 @@ public class SpringbootJpaApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        findOne();
+    }
+
+    //BUSCAR UN SOLO OBJETO
+    public void findOne() {
+        Person person = null;
+        Optional<Person> personOpt = personRepository.findById(19L);
+        //USO IF
+//        if (personOpt.isPresent()) {
+//            person = personOpt.get();
+//            System.out.println("encontrado la persona " + person);
+//        } else {
+//            System.out.println("Person no encontrado " + person);
+//        }
+        //USO TERNARIO OPERATOR
+        System.out.println(personOpt.isPresent() ?
+                "encontrado la persona " + personOpt.get() :
+                "Person no encontrado " + person);
+
+        //PRGRAMACION FUNCIONAL GOSU
+//        personRepository.findById(1L).ifPresent(person -> System.out.println(person));
+
+
+    }
+
+
+    public void list() {
         // List<Person> persons = (List<Person>) personRepository.findAll();
 
         //BUSCAR POR LENGUAGE DE PROGRAMACION
