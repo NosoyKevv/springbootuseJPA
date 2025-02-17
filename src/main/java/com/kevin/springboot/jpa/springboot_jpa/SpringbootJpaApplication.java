@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 @SpringBootApplication
 public class SpringbootJpaApplication implements CommandLineRunner {
@@ -28,13 +30,27 @@ public class SpringbootJpaApplication implements CommandLineRunner {
         create();
     }
 
+    @Transactional
     public void create() {
-        Person person = new Person(null, "LALO", "THOR", "SQL");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese su Nombre: ");
+        String name = scanner.next();
+        System.out.println("Ingrese su Apellido: ");
+        String lastName = scanner.next();
+        System.out.println("Ingrese su lenguaje de programacion");
+        String programmingLanguage = scanner.next();
+        scanner.close();
+
+        Person person = new Person(null, name, lastName, programmingLanguage);
         Person personNew = personRepository.save(person);
         System.out.println(personNew);
+
+        personRepository.findById(personNew.getId()).ifPresent(p -> System.out.println(p));
     }
 
     //BUSCAR UN SOLO OBJETO
+    @Transactional(readOnly = true)
     public void findOne() {
         Person person = null;
         Optional<Person> personOpt = personRepository.findById(1L);
@@ -56,7 +72,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
     }
 
-
+    @Transactional(readOnly = true)
     public void list() {
         // List<Person> persons = (List<Person>) personRepository.findAll();
 
