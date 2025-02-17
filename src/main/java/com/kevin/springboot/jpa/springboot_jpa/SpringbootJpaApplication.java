@@ -23,13 +23,21 @@ public class SpringbootJpaApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        findOne();
+//        findOne();
+//        list();
+        create();
+    }
+
+    public void create() {
+        Person person = new Person(null, "LALO", "THOR", "SQL");
+        Person personNew = personRepository.save(person);
+        System.out.println(personNew);
     }
 
     //BUSCAR UN SOLO OBJETO
     public void findOne() {
         Person person = null;
-        Optional<Person> personOpt = personRepository.findById(19L);
+        Optional<Person> personOpt = personRepository.findById(1L);
         //USO IF
 //        if (personOpt.isPresent()) {
 //            person = personOpt.get();
@@ -60,12 +68,19 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 //        List<Person> personsName = (List<Person>) personRepository.findByName("LAURA");
 //        personsName.stream().forEach(person -> System.out.println(person));
         //usando @QUERY
-        List<Person> buscarName = (List<Person>) personRepository.buscarByName("ESTEBAN", "PHP", "ORTIZ");
+        List<Person> buscarName = (List<Person>) personRepository.buscarByName("LUISA", "TYPESCRIPT", "GOMEZ");
         buscarName.stream().forEach(person -> System.out.println(person));
 
         //Otra consulta query
         List<Object[]> obtenerPersonData = personRepository.obtenerPersonData();
         obtenerPersonData.stream().forEach(person -> System.out.println(person[0] + " eres experto en " + person[1]));
 
+        List<Object[]> diferentName = personRepository.findAllBy();
+        diferentName.stream().forEach(person -> System.out.println(person[0] + " arreglo es diferentes a "));
+
+        List<Person> traerDataDiferente = personRepository.diferenteName();
+        traerDataDiferente.stream().forEach(person -> System.out.println(person + " Person traer diferente "));
+
     }
+
 }
