@@ -27,7 +27,27 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 //        findOne();
 //        list();
-        create();
+//        create();
+        update();
+    }
+
+    @Transactional
+    public void update() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("iNGRESE EL ID A EDITAR");
+        long id = scanner.nextLong();
+
+        Optional<Person> optionalPerson = personRepository.findById(id);
+        optionalPerson.ifPresent(person -> {
+            System.out.println(person);//Mostrar objeto completo
+            System.out.println("Ingrese el lenguaje de programacio");
+            String programmingLanguage = scanner.next();
+            person.setProgrammingLanguage(programmingLanguage);
+            Person personOb = personRepository.save(person);
+            System.out.println(personOb);
+        });
+        scanner.close();
     }
 
     @Transactional
