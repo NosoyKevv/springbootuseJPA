@@ -29,7 +29,28 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 //        list();
 //        create();
 //        update();
-        delete2();
+//        delete2();
+        customQuery();
+    }
+
+    @Transactional(readOnly = true)
+    public void customQuery() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("----------CONSULTAR NOMBRE POR ID ------------");
+        System.out.println("inserte el id de la persona que desea ver");
+
+        Long idCustomQuery = scanner.nextLong();
+        String name = personRepository.getNamePersonById(idCustomQuery);
+        System.out.println(name);
+
+        System.out.println("----------CONSULTAR ID-----------");
+        System.out.println("el nombre de la persona para ver su id");
+
+        String namePerson = scanner.next();
+        Long id = personRepository.getIdByName(namePerson);
+        System.out.println(id);
+
     }
 
     @Transactional

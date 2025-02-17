@@ -28,4 +28,10 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     @Query("SELECT p FROM Person AS p WHERE p.name !='LUISA'")
     List<Person> diferenteName();
 
+    //------------------------
+    @Query("SELECT concat(p.name,' ',p.lastName) FROM Person AS p WHERE p.id=?1")
+    String getNamePersonById(Long id);
+
+    @Query("SELECT p.id FROM Person AS p WHERE p.name=?1")
+    Long getIdByName(String name);
 }
