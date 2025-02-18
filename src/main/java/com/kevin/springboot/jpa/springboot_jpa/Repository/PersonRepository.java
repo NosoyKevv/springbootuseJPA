@@ -5,11 +5,16 @@ import com.kevin.springboot.jpa.springboot_jpa.Entity.Person;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
+
+    //CONSULTAS SQL PRUEBAS
+    @Query("SELECT p.name FROM Person p WHERE p.id BETWEEN :min AND :max")
+    List<String> findAllNamesBetween(@Param("min") Long min, @Param("max") Long max);
 
     //PERSON DTO
     @Query("SELECT NEW com.kevin.springboot.jpa.springboot_jpa.Dto.PersonDto(p.name, p.lastName) FROM Person p")

@@ -31,7 +31,15 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 //        create();
 //        update();
 //        delete2();
-        customMixQuery();
+//        customMixQuery();
+        custonQueryUseDistinct();
+    }
+
+    @Transactional(readOnly = true)
+    public void custonQueryUseDistinct() {
+        System.out.println("-------CONSULTA NOMBRE DE PERSONAS-------");
+        List<String> names = personRepository.findAllNamesBetween(1L, 3L);
+        names.forEach(System.out::println);
     }
 
     @Transactional(readOnly = true)
