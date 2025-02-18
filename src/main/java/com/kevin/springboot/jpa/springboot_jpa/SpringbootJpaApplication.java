@@ -30,7 +30,22 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 //        create();
 //        update();
 //        delete2();
-        customQuery();
+        customMixQuery();
+    }
+
+    @Transactional(readOnly = true)
+    public void customMixQuery() {
+        System.out.println("CONSULTA POR OBJETO PERSONA Y LENGUAJE PROGRAMACIO");
+        List<Object[]> personRegs = personRepository.findAllMixPerson();
+
+        personRegs.forEach(reg -> {
+            System.out.println("programminLenguage  " + reg[1] + " person = " + reg[0]
+            );
+        });
+        System.out.println("CONSULTA QUE PUEBLA Y DEVUELVA OBJETO ENTITY DE UNA INSTACIA PERSONALIZADA");
+        List<Person> personList = personRepository.findAllConstructorNewCustomPerson();
+//        personList.forEach(System.out::println);
+        personList.forEach(person -> System.out.println(person));
     }
 
     @Transactional(readOnly = true)

@@ -10,6 +10,10 @@ import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+//CONSTRUCTOR NOMBRE Y APELLIDO
+    @Query("SELECT NEW Person(p.name, p.lastName) FROM Person p")
+    List<Person> findAllConstructorNewCustomPerson();
+
 
     List<Person> findByProgrammingLanguage(String programmingLanguage);
 
@@ -41,5 +45,9 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
 
     @Query("SELECT p.id,p.name, p.lastName, p.programmingLanguage FROM Person AS p WHERE p.id=?1")
     Optional<Object> obtenerPersonById(Long id);
+
+    @Query("SELECT p, p.programmingLanguage FROM Person AS p")
+    List<Object[]> findAllMixPerson();
+
 
 }
