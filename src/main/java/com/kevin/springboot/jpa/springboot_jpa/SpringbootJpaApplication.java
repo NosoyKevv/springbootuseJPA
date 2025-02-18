@@ -51,7 +51,20 @@ public class SpringbootJpaApplication implements CommandLineRunner {
         Long id = personRepository.getIdByName(namePerson);
         System.out.println(id);
 
+        System.out.println("----------CONSULTAR TODO POR ID CUSTOMQUERY-----------");
+        System.out.println("Id dela persona a consultaar CUSTOMQUERY");
+        Long idObjectById = scanner.nextLong();
+        Optional<Object> optionalReg = personRepository.obtenerPersonById(idObjectById);
+        if (optionalReg.isPresent()) {
+            Object[] personReg = (Object[]) optionalReg.orElseThrow();
+            System.out.println("ID " + personReg[0] + "  NAME  " + personReg[1] + "  LASTNAME  " + personReg[2] + "  PROGRAMMINGLANGUAGE  " + personReg[3]);
+        }
+
+        System.out.println("----------CONSULTAR TODO POR LIST CUSTOMQUERY-----------");
+        List<Object[]> allList = personRepository.obtenerTodasPersonList();
+        allList.forEach(allListObj -> System.out.println("ID " + allListObj[0] + "  NAME  " + allListObj[1] + "  LASTNAME  " + allListObj[2] + "  PROGRAMMINGLANGUAGE  " + allListObj[3]));
     }
+
 
     @Transactional
     public void delete2() {

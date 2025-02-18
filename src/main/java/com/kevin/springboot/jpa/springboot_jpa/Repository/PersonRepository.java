@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
@@ -34,4 +35,11 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
 
     @Query("SELECT p.id FROM Person AS p WHERE p.name=?1")
     Long getIdByName(String name);
+
+    @Query("SELECT p.id,p.name, p.lastName, p.programmingLanguage FROM Person AS p")
+    List<Object[]> obtenerTodasPersonList();
+
+    @Query("SELECT p.id,p.name, p.lastName, p.programmingLanguage FROM Person AS p WHERE p.id=?1")
+    Optional<Object> obtenerPersonById(Long id);
+
 }
