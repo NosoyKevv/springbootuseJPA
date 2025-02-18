@@ -12,6 +12,12 @@ import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+
+    //USO DE SUBQUERY
+    @Query("SELECT p.name FROM Person p WHERE p.programmingLanguage IN ('PHP', 'SQL')")
+    List<String> findAllNamesSQL();
+
+
     //CONSULTAS SQL PRUEBAS
     @Query("SELECT p.name FROM Person p WHERE p.id BETWEEN :min AND :max")
     List<String> findAllNamesBetween(@Param("min") Long min, @Param("max") Long max);

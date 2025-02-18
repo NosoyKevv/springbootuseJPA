@@ -32,13 +32,13 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 //        update();
 //        delete2();
 //        customMixQuery();
-        custonQueryUseDistinct();
+        custonQueryUseSQL();
     }
 
     @Transactional(readOnly = true)
-    public void custonQueryUseDistinct() {
-        System.out.println("-------CONSULTA NOMBRE DE PERSONAS-------");
-        List<String> names = personRepository.findAllNamesBetween(1L, 3L);
+    public void custonQueryUseSQL() {
+        System.out.println("-------CONSULTA JPQL-------");
+        List<String> names = personRepository.findAllNamesSQL();
         names.forEach(System.out::println);
     }
 
