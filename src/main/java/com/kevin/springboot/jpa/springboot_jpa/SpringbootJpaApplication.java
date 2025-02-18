@@ -1,5 +1,6 @@
 package com.kevin.springboot.jpa.springboot_jpa;
 
+import com.kevin.springboot.jpa.springboot_jpa.Dto.PersonDto;
 import com.kevin.springboot.jpa.springboot_jpa.Entity.Person;
 import com.kevin.springboot.jpa.springboot_jpa.Repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,16 @@ public class SpringbootJpaApplication implements CommandLineRunner {
             System.out.println("programminLenguage  " + reg[1] + " person = " + reg[0]
             );
         });
+
         System.out.println("CONSULTA QUE PUEBLA Y DEVUELVA OBJETO ENTITY DE UNA INSTACIA PERSONALIZADA");
         List<Person> personList = personRepository.findAllConstructorNewCustomPerson();
 //        personList.forEach(System.out::println);
         personList.forEach(person -> System.out.println(person));
+
+        System.out.println("CONSULTA QUE PUEBLA Y DEVUELVA OBJETO DTO DE UNA CLASE PERSONALIZADA");
+        List<PersonDto> personDtoList = personRepository.findAllPersonDto();
+        personDtoList.forEach(personDto -> System.out.println(personDto));
+
     }
 
     @Transactional(readOnly = true)

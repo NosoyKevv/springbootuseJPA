@@ -1,5 +1,6 @@
 package com.kevin.springboot.jpa.springboot_jpa.Repository;
 
+import com.kevin.springboot.jpa.springboot_jpa.Dto.PersonDto;
 import com.kevin.springboot.jpa.springboot_jpa.Entity.Person;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +11,11 @@ import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
-//CONSTRUCTOR NOMBRE Y APELLIDO
+    //PERSON DTO
+    @Query("SELECT NEW com.kevin.springboot.jpa.springboot_jpa.Dto.PersonDto(p.name, p.lastName) FROM Person p")
+    List<PersonDto> findAllPersonDto();
+
+    //CONSTRUCTOR NOMBRE Y APELLIDO
     @Query("SELECT NEW Person(p.name, p.lastName) FROM Person p")
     List<Person> findAllConstructorNewCustomPerson();
 
